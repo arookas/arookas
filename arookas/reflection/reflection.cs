@@ -6,6 +6,7 @@ using System.Reflection;
 namespace arookas.Reflection {
 	public static class aReflection {
 		public static T CreateInstance<T>(params object[] args) {
+			aError.CheckNull(args, "args");
 			try {
 				return (T)Activator.CreateInstance(typeof(T), args);
 			}
@@ -14,9 +15,8 @@ namespace arookas.Reflection {
 			}
 		}
 		public static T CreateInstance<T>(Type type, params object[] args) {
-#if DEBUG
 			aError.CheckNull(type, "type");
-#endif
+			aError.CheckNull(args, "args");
 			try {
 				return (T)Activator.CreateInstance(type, args);
 			}
@@ -55,12 +55,8 @@ namespace arookas.Reflection {
 		}
 		public static Dictionary<TAttribute, Type> GetTypesWithAttribute<TAttribute, TBase>(this Assembly assembly, bool publicOnly, Predicate<Type> predicate)
 			where TAttribute : Attribute {
-			if (assembly == null) {
-				throw new ArgumentNullException("assembly");
-			}
-			if (predicate == null) {
-				throw new ArgumentNullException("predicate");
-			}
+			aError.CheckNull(assembly, "assembly");
+			aError.CheckNull(predicate, "predicate");
 			var foundTypes =
 				from type in (publicOnly ? assembly.GetExportedTypes() : assembly.GetTypes())
 				where typeof(TBase).IsAssignableFrom(type) // IsSubclassOf
@@ -74,13 +70,13 @@ namespace arookas.Reflection {
 
 		public static bool ImplementsInterface<TInterface>(this Type type)
 			where TInterface : class {
-			if (type == null) {
-				throw new ArgumentNullException("type");
-			}
+			aError.CheckNull(type, "type");
 			var interfaceType = typeof(TInterface);
-			if (!interfaceType.IsInterface) {
-				throw new ArgumentException(String.Format("The specified type '{0}' is not an interface.", interfaceType.Name), "type");
-			}
+			aError.Check<ArgumentException>(
+				interfaceType.IsInterface,
+				String.Format("The specified type '{0}' is not an interface.", interfaceType.Name),
+				"type"
+			);
 			return (type.GetInterface(interfaceType.Name) != null);
 		}
 	}
