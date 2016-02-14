@@ -16,7 +16,7 @@ workspace "arookas"
 		namespace "arookas"
 		location "arookas"
 		
-		links { "System", "System.Drawing" }
+		links { "System", "System.Drawing", "System.Xml", "System.Xml.Linq" }
 		
 		files {
 			"arookas/**.cs",
