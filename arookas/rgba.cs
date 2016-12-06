@@ -70,7 +70,7 @@ namespace arookas {
 		public const int cOpaque = 255;
 
 		public aRGBA(int intensity)
-			: this(intensity, intensity, intensity, cOpaque) { }
+			: this(intensity, intensity, intensity, intensity) { }
 		public aRGBA(int intensity, int alpha)
 			: this(intensity, intensity, intensity, alpha) { }
 		public aRGBA(int red, int green, int blue)
