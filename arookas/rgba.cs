@@ -59,12 +59,24 @@ namespace arookas {
 		static int[] sLookup7Bit;
 
 		static aRGBA() {
-			sLookup2Bit = aCollection.Initialize(4, i => (int)(255.0d / 3.0d * i));
-			sLookup3Bit = aCollection.Initialize(8, i => (int)(255.0d / 7.0d * i));
-			sLookup4Bit = aCollection.Initialize(16, i => (int)(255.0d / 15.0d * i));
-			sLookup5Bit = aCollection.Initialize(32, i => (int)(255.0d / 31.0d * i));
-			sLookup6Bit = aCollection.Initialize(64, i => (int)(255.0d / 63.0d * i));
-			sLookup7Bit = aCollection.Initialize(128, i => (int)(255.0d / 127.0d * i));
+			sLookup2Bit = new int[] { 0x00, 0x55, 0xAA, 0xFF, };
+			sLookup3Bit = new int[] { 0x00, 0x24, 0x49, 0x6D, 0x92, 0xB6, 0xDB, 0xFF };
+			sLookup4Bit = new int[16];
+			for (int i = 0; i < 16; ++i) {
+				sLookup4Bit[i] = ((i << 4) | i);
+			}
+			sLookup5Bit = new int[32];
+			for (int i = 0; i < 32; ++i) {
+				sLookup5Bit[i] = ((i << 3) | (i >> 5));
+			}
+			sLookup6Bit = new int[64];
+			for (int i = 0; i < 64; ++i) {
+				sLookup6Bit[i] = ((i << 2) | (i >> 6));
+			}
+			sLookup7Bit = new int[128];
+			for (int i = 0; i < 128; ++i) {
+				sLookup7Bit[i] = ((i << 1) | (i >> 7));
+			}
 		}
 
 		public const int cOpaque = 255;
@@ -133,7 +145,7 @@ namespace arookas {
 			return new aRGBA(
 				sLookup4Bit[(rgb4a3 >> 8) & 0xF],
 				sLookup4Bit[(rgb4a3 >> 4) & 0xF],
-				sLookup4Bit[rgb4a3 & 0xF],
+				sLookup4Bit[(rgb4a3 >> 0) & 0xF],
 				sLookup3Bit[(rgb4a3 >> 12) & 0x7]
 			);
 		}
