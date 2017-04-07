@@ -82,6 +82,9 @@ namespace arookas.Collections {
 			}
 		}
 
+		public static T[] Initialize<T>(int count) where T : new() {
+			return Initialize(count, () => new T());
+		}
 		public static T[] Initialize<T>(int count, Func<T> predicate) {
 			aError.CheckMin(count, "count", 0);
 			aError.CheckNull(predicate, "predicate");
