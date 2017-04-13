@@ -96,11 +96,9 @@ namespace arookas.IO.Binary {
 		}
 		public void WriteS32s(int[] value) {
 			aError.CheckNull(value, "value");
-			WriteS32s(value, 0, value.Length);
 			Write(value, sizeof(int), 0, value.Length, BitConverter.GetBytes);
 		}
 		public void WriteS32s(int[] value, int count) {
-			WriteS32s(value, 0, count);
 			Write(value, sizeof(int), 0, count, BitConverter.GetBytes);
 		}
 		public void WriteS32s(int[] value, int offset, int count) {
