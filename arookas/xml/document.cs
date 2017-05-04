@@ -30,13 +30,13 @@ namespace arookas.Xml {
 		}
 
 		public xDocument(Stream stream)
-			: this(XDocument.Load(stream)) { }
+			: this(XDocument.Load(stream, LoadOptions.SetLineInfo)) { }
 		public xDocument(string uri)
-			: this(XDocument.Load(uri)) { }
+			: this(XDocument.Load(uri, LoadOptions.SetLineInfo)) { }
 		public xDocument(XmlReader reader)
-			: this(XDocument.Load(reader)) { }
+			: this(XDocument.Load(reader, LoadOptions.SetLineInfo)) { }
 		public xDocument(TextReader textReader)
-			: this(XDocument.Load(textReader)) { }
+			: this(XDocument.Load(textReader, LoadOptions.SetLineInfo)) { }
 
 		public override bool Equals(object obj) {
 			var document = (obj as xDocument);

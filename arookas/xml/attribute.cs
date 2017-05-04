@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace arookas.Xml {
@@ -17,6 +18,28 @@ namespace arookas.Xml {
 		}
 		public string Value {
 			get { return Attribute.Value; }
+		}
+		public int LineNumber {
+			get {
+				var lineinfo = (mAttribute as IXmlLineInfo);
+
+				if (!lineinfo.HasLineInfo()) {
+					return -1;
+				}
+
+				return lineinfo.LineNumber;
+			}
+		}
+		public int LinePosition {
+			get {
+				var lineinfo = (mAttribute as IXmlLineInfo);
+
+				if (!lineinfo.HasLineInfo()) {
+					return -1;
+				}
+
+				return lineinfo.LinePosition;
+			}
 		}
 
 		public xAttribute Next {
